@@ -1,14 +1,32 @@
 <div class="cart-container">
-  <h2>Your Cart</h2>
+  <div class="cart-header">
+    <h2>Your Cart</h2>
+    <button *ngIf="cartItems.length > 0" 
+            class="clear-cart-btn" 
+            (click)="clearCart()">
+      Clear Cart
+    </button>
+  </div>
+  
   <ng-container *ngIf="cartItems.length === 0">
-    <p>Your cart is empty</p>
+    <p class="empty-cart-message">Your cart is empty</p>
   </ng-container>
+  
   <ng-container *ngIf="cartItems.length > 0">
     <div *ngFor="let item of cartItems" class="cart-item">
       <img [src]="item.image" alt="{{ item.title }}" class="cart-item-image">
       <div class="cart-item-details">
         <h3>{{ item.title }}</h3>
-        <p>Price: ${{ item.price }}</p>
+          <p>Price: ${{ item.price.toFixed(2) }}</p>
+      </div>
+      <button class="delete-btn" (click)="removeItem(item.id)">
+        <i class="fas fa-trash"></i> Remove
+      </button>
+    </div>
+    
+    <div class="cart-summary">
+      <div class="total-price">
+        <h3>Total: ${{ totalPrice.toFixed(2) }}</h3>
       </div>
     </div>
   </ng-container>

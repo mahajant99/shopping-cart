@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,4 +23,21 @@ export class CartService {
       tap(items => items)
     );
   }
+
+  removeFromCart(productId: number) {
+    const currentItems = this.cartItems.value;
+    const updatedItems = currentItems.filter(item => item.id !== productId);
+    this.cartItems.next(updatedItems);
+  }
+
+  getTotalPrice(): Observable<number> {
+    return this.cartItems.pipe(
+      map((items: any[]) => items.reduce((total, item) => total + item.price, 0))
+    );
+  }
+
+  clearCart() {
+    this.cartItems.next([]);
+  }
+
 }

@@ -12,6 +12,7 @@ import { Product } from '../../models/product.interface';
 })
 export class CartComponent implements OnInit {
   cartItems: Product[] = [];
+  totalPrice: number = 0;
 
   constructor(private cartService: CartService) { }
 
@@ -19,5 +20,18 @@ export class CartComponent implements OnInit {
     this.cartService.getCartItems().subscribe(items => {
       this.cartItems = items;
     });
+
+    this.cartService.getTotalPrice().subscribe(total => {
+      this.totalPrice = total;
+    });
   }
+
+  removeItem(productId: number) {
+    this.cartService.removeFromCart(productId);
+  }
+
+  clearCart() {
+    this.cartService.clearCart();
+  }
+
 }
