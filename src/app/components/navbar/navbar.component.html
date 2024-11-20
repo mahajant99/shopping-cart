@@ -1,1 +1,21 @@
-<p>navbar works!</p>
+<nav class="bg-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center h-16">
+        <div class="hidden md:flex items-center space-x-8">
+            <a routerLink="/products" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium" routerLinkActive="text-blue-600">
+            Products
+            </a>
+        </div>
+
+        <div class="flex items-center">
+          <a routerLink="/cart" class="relative p-2 text-gray-600 hover:text-gray-900 focus:outline-none">
+            Cart
+            <span *ngIf="cartItemCount > 0" 
+                  class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+              {{ cartItemCount }}
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+</nav>
