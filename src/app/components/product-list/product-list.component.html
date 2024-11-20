@@ -5,6 +5,15 @@
     <p class="product-description">{{ product.description }}</p>
     <img [src]="product.image" alt="{{ product.title }}" />
     <p>Price: ${{ product.price }}</p>
+    <div class="quantity-controls">
+        <button 
+          class="quantity-btn" 
+          (click)="decrementQuantity(product)">-</button>
+        <span class="quantity">{{ getQuantity(product) }}</span>
+        <button 
+          class="quantity-btn" 
+          (click)="incrementQuantity(product)">+</button>
+    </div>
     <button (click)="addToCart(product)" class="add-to-cart-btn">Add to Cart</button>
   </div>
 </div>

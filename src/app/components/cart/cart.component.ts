@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
-import { Product } from '../../models/product.interface';
+import { CartItem, Product } from '../../models/product.interface';
 
 @Component({
   selector: 'app-cart',
@@ -11,7 +11,7 @@ import { Product } from '../../models/product.interface';
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit {
-  cartItems: Product[] = [];
+  cartItems: CartItem[] = [];
   totalPrice: number = 0;
 
   constructor(private cartService: CartService) { }
@@ -24,6 +24,16 @@ export class CartComponent implements OnInit {
     this.cartService.getTotalPrice().subscribe(total => {
       this.totalPrice = total;
     });
+  }
+
+  updateQuantity(productId: number, newQuantity: number) {
+    if (newQuantity >= 1) {
+      this.cartService.updateQuantity(productId, newQuantity);
+    }
+  }
+
+  getItemPrice(price: number): number {
+    return Number(price);
   }
 
   removeItem(productId: number) {
